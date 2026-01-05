@@ -7,10 +7,9 @@ export default function BottomNav() {
     const { t } = useTranslation();
 
     const navItems = [
-        { name: t('tabs.home'), path: '/', icon: Home },
         { name: t('tabs.sector'), path: '/sectors', icon: Layers },
-        // Scan is typically central and prominent
-        { name: t('tabs.scan'), path: '/scan', icon: QrCode, isFab: true },
+        { name: t('tabs.scan'), path: '/scan', icon: QrCode },
+        { name: t('tabs.home'), path: '/', icon: Home, isFab: true },
         { name: t('tabs.contact'), path: '/contact', icon: Phone },
         { name: t('tabs.settings'), path: '/settings', icon: Settings },
     ];
