@@ -9,7 +9,7 @@ export default function Header() {
     const isDark = theme === 'dark';
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-primary text-white shadow-sm transition-all hidden lg:flex">
+        <header className="sticky top-0 z-50 w-full border-b bg-primary dark:bg-gray-900 border-transparent dark:border-gray-800 text-white shadow-sm transition-all hidden lg:flex">
             {/* Desktop Navigation - visible on lg and up */}
             <div className="flex h-16 items-center px-6 w-full max-w-7xl mx-auto justify-between">
                 <Link to="/" className="text-2xl font-bold tracking-tight">

@@ -15,7 +15,7 @@ export default function BottomNav() {
     ];
 
     return (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 h-16 bg-white border-t border-gray-200 lg:hidden pb-safe">
+        <nav className="fixed bottom-0 left-0 right-0 z-50 h-16 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 lg:hidden pb-safe">
             <div className="grid h-full grid-cols-5 mx-auto">
                 {navItems.map((item) => (
                     <NavLink
@@ -23,8 +23,8 @@ export default function BottomNav() {
                         to={item.path}
                         className={({ isActive }) =>
                             cn(
-                                "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 group transition-colors",
-                                isActive ? "text-primary" : "text-gray-500",
+                                "inline-flex flex-col items-center justify-center px-2 hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors",
+                                isActive ? "text-primary dark:text-primary" : "text-gray-500 dark:text-gray-400",
                                 item.isFab && "relative"
                             )
                         }
