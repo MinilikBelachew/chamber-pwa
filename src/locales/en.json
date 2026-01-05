@@ -183,5 +183,8 @@
     "permission_message": "We need your permission to access the camera",
     "grant_permission": "Grant Permission",
     "scan_instruction": "Align camera with QR Code",
-    "scan_again": "Scan Again"
+    "scan_again": "Scan Again",
+    "retry": "Retry",
+    "contactInfo": "Contact Info",
+    "no_results_desc": "Try searching with different keywords"
 }

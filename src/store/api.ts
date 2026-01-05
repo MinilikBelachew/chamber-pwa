@@ -27,10 +27,10 @@ export const api = createApi({
             query: (sectorId) => `public/sector/${sectorId}/categories`,
             transformResponse: (response: any) => {
                 const data = response.data;
-                const info = data.sector_info || {};
+                const info = data.sector_info || data || {};
                 return {
                     id: info.id,
-                    sectorName: info.sector_name,
+                    sectorName: info.sector_name || info.name,
                     photo: info.photo,
                     categories: data.categories?.map((c: any) => ({
                         id: c.id,
@@ -52,7 +52,7 @@ export const api = createApi({
                 const companies = data.companies?.map((c: any) => ({
                     id: c.id,
                     companyName: c.company_name,
-                    categoryName: c.category?.category_name || c.category_name, // Check company_model.dart
+                    categoryName: c.categorie?.categoryName || c.categorie?.category_name || c.category_name,
                     ads: [], // Todo map ads
                     // Add other fields if needed
                 })) || [];
@@ -105,7 +105,7 @@ export const api = createApi({
                 return {
                     id: data.id,
                     companyName: data.company_name,
-                    categoryName: data.category_name,
+                    categoryName: data.categorie?.category_name || data.category_name,
                     logo: data.logo,
                     description: data.description,
                     addressBook: data.address_book?.map((a: any) => ({
@@ -120,6 +120,17 @@ export const api = createApi({
                 };
             }
         }),
+        registerCompany: builder.mutation<any, { name: string; email: string; phone: string }>({
+            query: (data) => ({
+                url: 'contact',
+                method: 'POST',
+                body: {
+                    ...data,
+                    message: 'Register',
+                    status: 'pending',
+                },
+            }),
+        }),
     }),
 });
 
@@ -129,4 +140,5 @@ export const {
     useGetCategoryCompaniesQuery,
     useSearchCompaniesQuery,
     useGetCompanyDetailQuery,
+    useRegisterCompanyMutation,
 } = api;

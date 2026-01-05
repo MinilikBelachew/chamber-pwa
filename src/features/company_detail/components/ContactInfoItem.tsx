@@ -59,7 +59,7 @@ export default function ContactInfoItem({ contact }: ContactInfoItemProps) {
     return (
         <div
             onClick={handleClick}
-            className="mx-10 my-1 p-4 flex items-center bg-white rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+            className="mx-10 my-1 p-4 flex items-center bg-white dark:bg-surface rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer border border-transparent dark:border-gray-800"
         >
             <div className="w-7 h-7 flex items-center justify-center text-primary">
                 <img
@@ -73,7 +73,7 @@ export default function ContactInfoItem({ contact }: ContactInfoItemProps) {
                 />
                 <IconComp className="hidden w-6 h-6" />
             </div>
-            <div className="ml-6 flex-1 font-bold text-base truncate">
+            <div className="ml-6 flex-1 font-bold text-base truncate text-black dark:text-white">
                 {contact.addressValue}
             </div>
         </div>

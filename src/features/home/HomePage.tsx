@@ -1,17 +1,21 @@
+import { useTranslation } from 'react-i18next';
 import { useGetPublicCategoriesQuery } from '../../store/api';
 import SearchBar from './components/SearchBar';
 import TopSectors from './components/TopSectors';
 import { Skeleton } from '../../components/ui/Skeleton';
 import homeBg from '../../assets/homebg.png';
 import circleImg from '../../assets/circleimg.png';
+import AdsCarousel from '../../components/ui/AdsCarousel';
 
 export default function HomePage() {
+    const { t } = useTranslation();
     const { data, isLoading, error } = useGetPublicCategoriesQuery();
 
     // The API returns { sectors: [...] } based on Flutter analysis (TopSectorsWidget uses state.sectors)
     // We need to verify the exact API response structure. 
     // Assuming data structure matches Flutter's expectation: { sectors: [] }
     const sectors = data?.sectors || [];
+    const ads = data?.ads || [];
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -40,10 +44,12 @@ export default function HomePage() {
                 </div>
 
                 {/* Chamber Info Card */}
-                <div className="absolute top-[215px] left-[30px] right-[30px] z-10">
+                <div className="absolute top-[225px] left-[30px] right-[30px] z-10">
                     <div className="h-[125px] bg-primary rounded-2xl p-5 flex items-center justify-between shadow-lg text-white">
                         <div className="flex-1">
-                            <h2 className="text-lg font-bold leading-tight">Chamber of <br />Commerce</h2>
+                            <h2 className="text-xl font-bold leading-tight whitespace-pre-line">
+                                {t('chambersOfCommerce')}
+                            </h2>
                         </div>
                         <div className="w-[65px] h-[65px] bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
                             <img
@@ -60,15 +66,23 @@ export default function HomePage() {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 pt-5">
                 {isLoading ? (
-                    <TopSectors sectors={[]} loading={true} />
+                    <div className="space-y-6">
+                        <Skeleton className="h-40 w-full mx-4" />
+                        <TopSectors sectors={[]} loading={true} />
+                    </div>
                 ) : error ? (
                     <div className="p-8 text-center text-red-500">
                         Failed to load data. Please try again.
                     </div>
                 ) : (
-                    <TopSectors sectors={sectors} />
+                    <>
+                        <div className="mb-4">
+                            <AdsCarousel ads={ads} />
+                        </div>
+                        <TopSectors sectors={sectors} />
+                    </>
                 )}
             </div>
         </div>

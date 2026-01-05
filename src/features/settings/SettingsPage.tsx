@@ -72,8 +72,8 @@ export default function SettingsPage() {
                                         setIsLanguageModalOpen(false);
                                     }}
                                     className={`w-full flex items-center justify-between p-4 rounded-xl mb-1 transition-colors ${i18n.language === lang.code
-                                            ? 'bg-primary/10 text-primary'
-                                            : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-black dark:text-gray-200'
+                                        ? 'bg-primary/10 text-primary'
+                                        : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-black dark:text-gray-200'
                                         }`}
                                 >
                                     <div className="flex flex-col items-start">
@@ -115,7 +115,7 @@ export default function SettingsPage() {
                     <MenuItem
                         icon={UserPlus}
                         title={t('profile.registerYourCompany')}
-                        onClick={() => navigate('/contact')}
+                        onClick={() => navigate('/register')}
                     />
                 </div>
 

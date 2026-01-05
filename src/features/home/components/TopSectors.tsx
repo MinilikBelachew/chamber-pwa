@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Skeleton } from '../../../components/ui/Skeleton';
 import SectorList from '../../../components/ui/SectorList';
 
@@ -17,11 +18,12 @@ interface TopSectorsProps {
 
 export default function TopSectors({ sectors, loading }: TopSectorsProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     if (loading) {
         return (
             <div className="space-y-4 px-4">
-                <h3 className="text-lg font-bold">Top Sectors</h3>
+                <h3 className="text-lg font-bold">{t('topSectors')}</h3>
                 {[1, 2, 3].map((i) => (
                     <Skeleton key={i} className="h-24 w-full rounded-xl" />
                 ))}
@@ -31,12 +33,12 @@ export default function TopSectors({ sectors, loading }: TopSectorsProps) {
 
     return (
         <div className="space-y-4 pb-20">
-            <div className="px-4 pt-6 pb-2">
-                <h3 className="text-xl font-bold">Top Sectors</h3>
+            <div className="px-4 pt-6 pb-3">
+                <h3 className="text-xl font-bold">{t('topSectors')}</h3>
             </div>
             <div className="px-4">
                 <SectorList
-                    sectors={sectors}
+                    sectors={sectors.slice(0, 5)}
                     onSectorClick={(id) => navigate(`/sector/${id}`)}
                 />
             </div>

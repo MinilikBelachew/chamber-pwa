@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Search, QrCode, Moon, Sun, Settings } from 'lucide-react';
+import { QrCode, Moon, Sun, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../context/ThemeProvider';
 
@@ -27,10 +27,6 @@ export default function Header() {
                         {t('tabs.contact')}
                     </Link>
                     <div className="flex items-center gap-3 ml-4">
-                        <Link to="/search" className="p-2 hover:bg-white/10 rounded-full transition-colors">
-                            <Search className="h-5 w-5" />
-                        </Link>
-
                         <button
                             onClick={toggleTheme}
                             className="p-2 hover:bg-white/10 rounded-full transition-colors"

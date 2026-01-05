@@ -1,6 +1,6 @@
 
-import { ChevronRight } from 'lucide-react';
-import { Card, CardContent } from '../../../components/ui/Card';
+import { useTranslation } from 'react-i18next';
+import { formatName } from '../../../lib/format';
 
 export interface Category {
     id: number;
@@ -15,24 +15,49 @@ interface CategoryListItemProps {
     onTap?: () => void;
 }
 
-export default function CategoryListItem({ category, onTap }: CategoryListItemProps) {
+export default function CategoryListItem({ category, sectorPhoto, index = 0, onTap }: CategoryListItemProps) {
+    const { t } = useTranslation();
+
     return (
-        <Card
-            className="cursor-pointer hover:shadow-md transition-shadow dark:bg-card mb-2"
+        <div
+            className="flex items-center gap-4 py-3 px-4 active:bg-gray-100 dark:active:bg-gray-800 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-0"
             onClick={onTap}
         >
-            <CardContent className="p-4 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-lg">
-                        {category.categoryName.charAt(0)}
-                    </div>
-                    <div>
-                        <h3 className="font-semibold text-lg">{category.categoryName}</h3>
-                        <p className="text-sm text-gray-500">{category.companiesCount} companies</p>
-                    </div>
-                </div>
-                <ChevronRight className="h-5 w-5 text-gray-400" />
-            </CardContent>
-        </Card>
+            {/* Number badge */}
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                    {index + 1}
+                </span>
+            </div>
+
+            {/* Sector image */}
+            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-850 border border-gray-100 dark:border-gray-800">
+                <img
+                    src={sectorPhoto ? `https://coc.addisanalytics.com/storage/uploads/${sectorPhoto}` : 'https://placehold.co/100x100?text=Sector'}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://placehold.co/100x100?text=Sector';
+                    }}
+                />
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-bold text-black dark:text-white truncate leading-tight">
+                    {formatName(category.categoryName)}
+                </h3>
+                <p className="text-xs text-secondary-foreground/60 dark:text-gray-400 mt-0.5">
+                    {category.companiesCount} {t('companies')}
+                </p>
+            </div>
+
+            {/* View badge */}
+            <div className="flex-shrink-0 bg-primary px-4 py-1.5 rounded-full shadow-sm active:scale-95 transition-transform">
+                <span className="text-[11px] font-bold text-white uppercase tracking-wider">
+                    {t('view')}
+                </span>
+            </div>
+        </div>
     );
 }

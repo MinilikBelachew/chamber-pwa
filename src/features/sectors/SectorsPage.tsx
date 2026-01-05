@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useGetPublicCategoriesQuery } from '../../store/api';
 import SectorList from '../../components/ui/SectorList';
+import SearchBar from '../home/components/SearchBar';
 import type { Sector } from '../home/components/TopSectors';
 import { Skeleton } from '../../components/ui/Skeleton';
 
@@ -9,10 +11,16 @@ export default function SectorsPage() {
     const { data, isLoading, error } = useGetPublicCategoriesQuery();
     const sectors: Sector[] = data?.sectors || [];
 
+    const { t } = useTranslation();
+
     return (
-        <div className="pt-4 min-h-screen pb-20">
+        <div className="pt-4 min-h-screen pb-20 bg-background text-black dark:text-white">
             <div className="px-4 mb-4">
-                <h1 className="text-2xl font-bold text-primary">All Sectors</h1>
+                <h1 className="text-2xl font-bold">{t('tabs.sector')}</h1>
+            </div>
+
+            <div className="px-4 mb-6">
+                <SearchBar />
             </div>
 
             {isLoading ? (

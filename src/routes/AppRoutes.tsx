@@ -10,6 +10,8 @@ import ScannerPage from '../features/scanner/ScannerPage';
 import ContactPage from '../features/contact/ContactPage';
 import SettingsPage from '../features/settings/SettingsPage';
 import AboutPage from '../features/settings/AboutPage';
+import RegistrationPage from '../features/auth/RegistrationPage';
+import RegistrationSuccessPage from '../features/auth/RegistrationSuccessPage';
 
 
 export default function AppRoutes() {
@@ -28,6 +30,10 @@ export default function AppRoutes() {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/about" element={<AboutPage />} />
             </Route>
+
+            {/* Routes outside shell (custom header) */}
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/registration-success" element={<RegistrationSuccessPage />} />
         </Routes>
     );
 }

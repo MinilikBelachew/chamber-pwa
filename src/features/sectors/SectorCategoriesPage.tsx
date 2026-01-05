@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useGetSectorCategoriesQuery } from '../../store/api';
 import { Skeleton } from '../../components/ui/Skeleton';
 import CategoryListItem from './components/CategoryListItem';
@@ -7,6 +8,7 @@ import AdsCarousel from '../../components/ui/AdsCarousel';
 export default function SectorCategoriesPage() {
     const { sectorId } = useParams();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { data: sector, isLoading, error } = useGetSectorCategoriesQuery(Number(sectorId));
 
     if (isLoading) {
@@ -23,7 +25,7 @@ export default function SectorCategoriesPage() {
     }
 
     return (
-        <div className="pb-20 bg-gray-50 min-h-screen">
+        <div className="pb-20 bg-background min-h-screen">
             {/* Hero Image */}
             <div className="relative h-[250px] w-full">
                 <img
@@ -49,12 +51,16 @@ export default function SectorCategoriesPage() {
             )}
 
             {/* Categories List */}
-            <div className="p-4 space-y-2">
-                <h2 className="text-xl font-bold mb-4 ml-2">Categories</h2>
+            <div className="bg-surface mx-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
+                <div className="p-4 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-800">
+                    <h2 className="text-xl font-bold text-black dark:text-white">{t('categories')}</h2>
+                </div>
                 {sector.categories?.map((category: any, index: number) => (
                     <CategoryListItem
                         key={category.id}
                         category={category}
+                        sectorPhoto={sector.photo}
+                        index={index}
                         onTap={() => navigate(`/company-list/${category.id}`)}
                     />
                 ))}

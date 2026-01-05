@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '../../../components/ui/Card';
-import { Button } from '../../../components/ui/Button';
+import { formatName } from '../../../lib/format';
+import compPlaceholder from '../../../assets/compp.jpg';
 
 export interface Company {
     id: number;
@@ -17,39 +17,39 @@ export default function CompanyListItem({ company }: CompanyListItemProps) {
     const navigate = useNavigate();
 
     return (
-        <Card
-            className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow dark:bg-card mb-3"
+        <div
+            className="flex items-center bg-white dark:bg-surface rounded-2xl p-2 mb-3 shadow-sm active:scale-[0.98] transition-all cursor-pointer border border-gray-100 dark:border-gray-800"
             onClick={() => navigate(`/company/${company.id}`)}
         >
-            <CardContent className="p-2 flex items-center">
-                <div className="h-[100px] w-[120px] bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                    <img
-                        src="https://placehold.co/120x100?text=Company" // Placeholder as in Flutter it was a local asset 'compp.jpg'
-                        alt={company.companyName}
-                        className="h-full w-full object-cover"
-                    />
-                </div>
-                <div className="ml-4 flex-1 min-w-0">
-                    <h4 className="font-semibold text-base line-clamp-2 leading-tight">
-                        {formatCompanyName(company.companyName)}
-                    </h4>
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                        {formatCompanyName(company.categoryName)}
-                    </p>
-                </div>
-                <div className="hidden sm:block ml-2">
-                    <Button size="sm" className="rounded-full bg-primary hover:bg-primary/90">
+            {/* Company Image Placeholder */}
+            <div className="h-[90px] w-[110px] bg-gray-100 dark:bg-gray-800/50 rounded-xl overflow-hidden flex-shrink-0">
+                <img
+                    src={compPlaceholder}
+                    alt="Company"
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* Info */}
+            <div className="ml-4 flex-1 min-w-0 pr-2">
+                <h4 className="font-bold text-[15px] sm:text-base text-black dark:text-white line-clamp-2 leading-tight">
+                    {formatName(company.companyName)}
+                </h4>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 truncate font-medium">
+                    {formatName(company.categoryName)}
+                </p>
+            </div>
+
+            {/* View Button */}
+            <div className="flex-shrink-0 pr-2">
+                <div className="bg-primary px-3 py-1.5 rounded-full shadow-sm">
+                    <span className="text-[11px] font-bold text-white uppercase">
                         View
-                    </Button>
+                    </span>
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }
 
-function formatCompanyName(name: string) {
-    if (!name) return '';
-    return name.split(' ').map(word =>
-        word ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() : ''
-    ).join(' ');
-}
+

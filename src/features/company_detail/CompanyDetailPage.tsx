@@ -9,6 +9,8 @@ import { Skeleton } from '../../components/ui/Skeleton';
 import { Button } from '../../components/ui/Button';
 import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { formatName } from '../../lib/format';
+import compPlaceholder from '../../assets/compp.jpg';
 
 export default function CompanyDetailPage() {
     const { t } = useTranslation();
@@ -65,19 +67,16 @@ export default function CompanyDetailPage() {
             {/* Hero Section */}
             <div className="relative h-[240px] w-full">
                 <img
-                    src={company.logo ? `https://coc.addisanalytics.com/storage/uploads/${company.logo}` : 'https://placehold.co/600x240?text=Company'}
+                    src={compPlaceholder}
                     alt={company.companyName}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://placehold.co/600x240?text=Company';
-                    }}
                 />
                 <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
                     <h1 className="text-2xl font-bold text-white drop-shadow-md">
-                        {company.companyName}
+                        {formatName(company.companyName)}
                     </h1>
                     <p className="text-white/90 text-sm font-medium mt-1 drop-shadow-md">
-                        {company.categoryName}
+                        {formatName(company.categoryName)}
                     </p>
                 </div>
             </div>
@@ -124,15 +123,15 @@ export default function CompanyDetailPage() {
 
                 {/* Additional Info */}
                 {company.additionalInfo && Object.keys(company.additionalInfo).length > 0 && (
-                    <div className="mt-6 mx-10">
+                    <div className="mt-8 mx-10">
                         <h3 className="text-xl font-bold mb-4 text-black dark:text-white">Additional Information</h3>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {Object.entries(company.additionalInfo).map(([key, value]) => (
-                                <div key={key} className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-                                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-1">
+                                <div key={key} className="bg-gray-100 dark:bg-surface border border-transparent dark:border-gray-800 rounded-2xl p-4 transition-colors">
+                                    <h4 className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
                                         {key.replace(/_/g, ' ')}
                                     </h4>
-                                    <p className="text-sm text-gray-800 dark:text-gray-200">{String(value)}</p>
+                                    <p className="text-[15px] font-medium text-black dark:text-white leading-relaxed">{String(value)}</p>
                                 </div>
                             ))}
                         </div>
